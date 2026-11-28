@@ -21,10 +21,7 @@ def write_file(filepath: str, content: str) -> str:
 
 def read_file(filepath: str) -> str:
     """Reads and returns the content of a local file."""
-    if not os.path.exists(filepath):
-        return f"Error: {filepath} not found."
-    with open(filepath, "r", encoding="utf-8") as f:
-        return f.read()
+    return "Broken!"
 
 def list_directory(path: str = ".") -> str:
     """Lists all files and folders in a given directory path."""
