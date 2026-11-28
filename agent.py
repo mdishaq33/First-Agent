@@ -10,6 +10,10 @@ load_dotenv()
 
 def write_file(filepath: str, content: str) -> str:
     """Creates or overwrites a file with the given text content."""
+    if os.path.exists(filepath):
+        confirm = input(f"\n[Safety Check] File '{filepath}' already exists. Overwrite? (y/n): ").strip().lower()
+        if confirm != "y":
+            return f"Cancelled by user: Did not overwrite {filepath}."
     os.makedirs(os.path.dirname(os.path.abspath(filepath)), exist_ok=True)
     with open(filepath, "w", encoding="utf-8") as f:
         f.write(content)
@@ -40,6 +44,9 @@ def fetch_webpage(url: str) -> str:
 
 def run_terminal_command(command: str) -> str:
     """Executes a shell command and returns stdout/stderr."""
+    confirm = input(f"\n[Safety Check] Allow terminal command: `{command}`? (y/n): ").strip().lower()
+    if confirm != "y":
+        return "Cancelled by user: Command was not executed."
     try:
         result = subprocess.run(
             command, shell=True, capture_output=True, text=True, timeout=30
